@@ -30,3 +30,10 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
  
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$pomXml = Get-Content .\pom.xml
+      $version=$pomXml.project.version
+      Write-Host "##vso[task.setvariable variable=version]$version"
